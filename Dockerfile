@@ -6,6 +6,6 @@ ARG ARCH
 # Create app directory
 WORKDIR /usr/src/app
 
-COPY server .
+COPY protohackers .
 
-CMD ./server
+CMD ./protohackers
