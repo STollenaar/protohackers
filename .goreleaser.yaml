@@ -48,6 +48,10 @@ docker_manifests:
     image_templates:
       - "{{ .Env.REPO }}:{{ tolower .ProjectName }}-{{ .Version }}-amd64"
       - "{{ .Env.REPO }}:{{ tolower .ProjectName }}-{{ .Version }}-arm64"
+  - name_template: "{{ .Env.REPO }}:{{ tolower .ProjectName }}-latest"
+    image_templates:
+      - "{{ .Env.REPO }}:{{ tolower .ProjectName }}-latest-amd64"
+      - "{{ .Env.REPO }}:{{ tolower .ProjectName }}-latest-arm64"
 changelog:
   sort: asc
   filters:
