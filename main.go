@@ -1,13 +1,21 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"math/big"
 	"net"
 	"os"
 )
 
 var EOF = errors.New("EOF")
+
+type isPrime struct {
+	Method string  `json:"method,omitempty"`
+	Number float64 `json:"number,omitempty"`
+	Prime  bool    `json:"prime"`
+}
 
 func main() {
 	ln, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
@@ -32,7 +40,7 @@ func handle(conn net.Conn) {
 
 	buff := make([]byte, 32*1024)
 	for {
-		messageLength, err := conn.Read(buff)
+		rl, err := conn.Read(buff)
 
 		if err != nil {
 			if err != EOF {
@@ -41,7 +49,34 @@ func handle(conn net.Conn) {
 			break
 		}
 
-		_, err = conn.Write(buff[0:messageLength])
+		data := new(isPrime)
+
+		fmt.Println("Found string: ", string(buff[:rl]))
+		err = json.Unmarshal(buff[:rl], data)
+		if err != nil {
+			conn.Write([]byte(err.Error()))
+			break
+		}
+
+		if float64(int64(data.Number)) != data.Number {
+			conn.Write([]byte("Number was not an integer"))
+			break
+		}
+		if data.Method != "isPrime" {
+			conn.Write([]byte("method was not isPrime"))
+			break
+		}
+		if big.NewInt(int64(data.Number)).ProbablyPrime(0) {
+			data.Prime = true
+		} else {
+			data.Prime = false
+		}
+		out, err := json.Marshal(data)
+		if err != nil {
+			fmt.Println("Error writing data: ", err)
+			break
+		}
+		_, err = conn.Write(out)
 
 		if err != nil {
 			fmt.Println("Error writing data: ", err)
