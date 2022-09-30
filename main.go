@@ -1,11 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"io"
 	"net"
 	"os"
 )
+
+var EOF = errors.New("EOF")
 
 func main() {
 	ln, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
@@ -28,7 +30,22 @@ func main() {
 func handle(conn net.Conn) {
 	defer conn.Close()
 
-	if _, err := io.Copy(conn, conn); err != nil {
-		fmt.Println("copy: ", err.Error())
+	buff := make([]byte, 32*1024)
+	for {
+		messageLength, err := conn.Read(buff)
+
+		if err != nil {
+			if err != EOF {
+				fmt.Println("Error reading data: ", err)
+			}
+			break
+		}
+
+		_, err = conn.Write(buff[0:messageLength])
+
+		if err != nil {
+			fmt.Println("Error writing data: ", err)
+			break
+		}
 	}
 }
