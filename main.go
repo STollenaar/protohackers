@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	problem0 "protohackers/lib/problem-0"
 	problem1 "protohackers/lib/problem-1"
@@ -18,11 +19,13 @@ func init() {
 
 func main() {
 	switch problemSelection {
+	case "problem-0":
+		problem0.Problem()
 	case "problem-1":
 		problem1.Problem()
 	case "problem-2":
 		problem2.Problem()
 	default:
-		problem0.Problem()
+		log.Fatal("Problem not found")
 	}
 }
