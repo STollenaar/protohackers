@@ -1,20 +1,18 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"math/big"
 	"net"
 	"os"
 )
 
-var EOF = errors.New("EOF")
-
 type isPrime struct {
-	Method string  `json:"method,omitempty"`
-	Number float64 `json:"number,omitempty"`
-	Prime  bool    `json:"prime"`
+	Method *string  `json:"method,"`
+	Number *float64 `json:"number,"`
+	Prime  bool     `json:"prime"`
 }
 
 func main() {
@@ -38,49 +36,53 @@ func main() {
 func handle(conn net.Conn) {
 	defer conn.Close()
 
-	buff := make([]byte, 32*1024)
-	for {
-		rl, err := conn.Read(buff)
+	scanner := bufio.NewScanner(conn)
 
-		if err != nil {
-			if err != EOF {
-				fmt.Println("Error reading data: ", err)
-			}
-			break
+	for scanner.Scan() {
+		buff := scanner.Bytes()
+
+		if os.Getenv("DEBUG") == "true" {
+			fmt.Println("Read string: ", string(buff))
 		}
 
 		data := new(isPrime)
 
-		fmt.Println("Found string: ", string(buff[:rl]))
-		err = json.Unmarshal(buff[:rl], data)
+		err := json.Unmarshal([]byte(buff), data)
 		if err != nil {
+			if os.Getenv("DEBUG") == "true" {
+				fmt.Println("Malformed request: ", string(buff), " ", err)
+			}
 			conn.Write([]byte(err.Error()))
-			break
+			return
 		}
 
-		if float64(int64(data.Number)) != data.Number {
-			conn.Write([]byte("Number was not an integer"))
-			break
+		if data.Method == nil || (data.Method != nil && *data.Method != "isPrime") || data.Number == nil {
+			if os.Getenv("DEBUG") == "true" {
+				fmt.Println("Malformed request: ", string(buff))
+			}
+			conn.Write([]byte("Malformed request\n"))
+			return
 		}
-		if data.Method != "isPrime" {
-			conn.Write([]byte("method was not isPrime"))
-			break
-		}
-		if big.NewInt(int64(data.Number)).ProbablyPrime(0) {
+
+		if *data.Number != float64(int64(*data.Number)) {
+			data.Prime = false
+		} else if big.NewInt(int64(*data.Number)).ProbablyPrime(0) {
 			data.Prime = true
 		} else {
 			data.Prime = false
 		}
+
 		out, err := json.Marshal(data)
-		if err != nil {
-			fmt.Println("Error writing data: ", err)
-			break
+		out = append(out, []byte("\n")...)
+
+		if os.Getenv("DEBUG") == "true" {
+			fmt.Println("Responding with: ", string(out))
 		}
-		_, err = conn.Write(out)
 
 		if err != nil {
 			fmt.Println("Error writing data: ", err)
-			break
+			return
 		}
+		conn.Write(out)
 	}
 }
