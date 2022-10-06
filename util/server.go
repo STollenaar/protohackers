@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strconv"
 )
 
 type ServerTCP struct {
@@ -29,12 +30,17 @@ func (s *ServerTCP) Start() {
 }
 
 type ServerUDP struct {
-	ConnectionHandler func(net.Conn)
+	ConnectionHandler func(*net.UDPConn)
 }
 
 func (s *ServerUDP) Start() {
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err != nil {
+		panic(err)
+	}
+
 	conn, err := net.ListenUDP("udp", &net.UDPAddr{
-		Port: 3000,
+		Port: port,
 		IP:   net.ParseIP("0.0.0.0"),
 	})
 	if err != nil {
