@@ -10,7 +10,7 @@ import (
 	"protohackers/util"
 )
 
-var server util.Server
+var server util.ServerTCP
 
 type isPrime struct {
 	Method *string  `json:"method,"`
@@ -19,7 +19,7 @@ type isPrime struct {
 }
 
 func init() {
-	server = util.Server{
+	server = util.ServerTCP{
 		ConnectionHandler: handle,
 	}
 }

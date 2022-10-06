@@ -6,11 +6,11 @@ import (
 	"os"
 )
 
-type Server struct {
+type ServerTCP struct {
 	ConnectionHandler func(net.Conn)
 }
 
-func (s *Server) Start() {
+func (s *ServerTCP) Start() {
 	ln, err := net.Listen("tcp", ":"+os.Getenv("PORT"))
 	if err != nil {
 		fmt.Println("listen: ", err.Error())
@@ -26,4 +26,21 @@ func (s *Server) Start() {
 		fmt.Println("connection from ", conn.RemoteAddr())
 		go s.ConnectionHandler(conn)
 	}
+}
+
+type ServerUDP struct {
+	ConnectionHandler func(net.Conn)
+}
+
+func (s *ServerUDP) Start() {
+	conn, err := net.ListenUDP("udp", &net.UDPAddr{
+		Port: 3000,
+		IP:   net.ParseIP("0.0.0.0"),
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("listening on port " + os.Getenv("PORT"))
+	s.ConnectionHandler(conn)
 }

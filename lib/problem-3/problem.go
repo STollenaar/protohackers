@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	server util.Server
+	server util.ServerTCP
 	users  []*User
 	regex  *regexp.Regexp
 )
@@ -24,7 +24,7 @@ type User struct {
 }
 
 func init() {
-	server = util.Server{
+	server = util.ServerTCP{
 		ConnectionHandler: handle,
 	}
 	regex, _ = regexp.Compile("^[a-zA-Z0-9]+$")

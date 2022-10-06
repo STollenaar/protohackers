@@ -7,10 +7,10 @@ import (
 	"protohackers/util"
 )
 
-var server util.Server
+var server util.ServerTCP
 
 func init() {
-	server = util.Server{
+	server = util.ServerTCP{
 		ConnectionHandler: handle,
 	}
 }

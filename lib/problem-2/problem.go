@@ -17,7 +17,7 @@ type Request struct {
 }
 
 type ServerWithReader struct {
-	util.Server
+	util.ServerTCP
 }
 
 const (
@@ -41,7 +41,7 @@ func (s *ServerWithReader) readMessage(conn net.Conn) (incoming Request, err err
 
 func init() {
 	server = ServerWithReader{
-		Server: util.Server{
+		ServerTCP: util.ServerTCP{
 			ConnectionHandler: handle,
 		},
 	}
