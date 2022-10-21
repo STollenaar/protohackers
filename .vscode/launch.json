@@ -12,7 +12,8 @@
             "program": "main.go",
             "env": {
                 "PORT": "4269",
-                "DEBUG": "true"
+                "DEBUG": "true",
+                "PROBLEM": "problem-5"
             }
         }
     ]
