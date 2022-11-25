@@ -10,6 +10,7 @@ import (
 	problem4 "protohackers/lib/problem-4"
 	problem5 "protohackers/lib/problem-5"
 	problem6 "protohackers/lib/problem-6"
+	problem7 "protohackers/lib/problem-7"
 )
 
 var problemSelection string
@@ -37,6 +38,8 @@ func main() {
 		problem5.Problem()
 	case "problem-6":
 		problem6.Problem()
+	case "problem-7":
+		problem7.Problem()
 	default:
 		log.Fatal("Problem not found")
 	}
