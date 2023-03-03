@@ -1,6 +1,8 @@
 package problem8
 
 import (
+	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
 	"protohackers/util"
@@ -22,57 +24,70 @@ type ErrorM struct {
 
 var (
 	ErrUnknown = errors.New("unknown message")
+	ErrInvalid = errors.New("invalid cypherspec provided")
 )
 
 type ServerWithReader struct {
 	util.ServerTCP
 }
 
-// Reading an incoming message
-func (s *ServerWithReader) ReadMessage(client *Client) (msg string, err error) {
-	for _, err = client.reader.r.Peek(1); err == nil; {
-		typ, err := client.reader.r.ReadByte()
-		fmt.Println("Type", typ, "ClientCypher", client.cypherSpec)
+func (s *ServerWithReader) ReadCypherSpec(reader *bufio.Reader) (encoder, decoder []Cypher, err error) {
+	var rawCyphers []byte
+
+	for _, err := reader.Peek(1); err == nil; {
+		r, err := reader.ReadByte()
 		if err != nil {
-			fmt.Println("Error1", err)
-			return "", err
+			fmt.Println(err)
+			return nil, nil, err
 		}
 
-		switch typ {
-		case ReverseType:
-			fmt.Println("Reverse")
-			client.cypherSpec = append(client.cypherSpec, ReverseCypher{})
-		case XORNType:
-			value, err := client.reader.r.ReadByte()
-			fmt.Println("XORN with value", value, "Err", err)
-			client.cypherSpec = append(client.cypherSpec, XORNCypher{value: value})
-		case XORPosType:
-			fmt.Println("XORPos")
-			client.cypherSpec = append(client.cypherSpec, XORPosCypher{})
-		case AddNType:
-			value, err := client.reader.r.ReadByte()
-			fmt.Println("AddN with value", value, "Err", err)
-			client.cypherSpec = append(client.cypherSpec, AddNCypher{value: value})
-		case AddPosType:
-			fmt.Println("AddPos")
-			client.cypherSpec = append(client.cypherSpec, XORPosCypher{})
-		case EndType:
-		default:
-			db := s.decodeByte(client, typ)
-			fmt.Println("Decoded", db, "Message:", string(db))
-			if string(db) == "\n" {
-				fmt.Println("Done decoding, full message", msg)
-				return msg, nil
+		if r == EndType {
+			if len(rawCyphers) > 0 && rawCyphers[len(rawCyphers)-1] != AddNType && rawCyphers[len(rawCyphers)-1] != XORNType {
+				break
+			} else if len(rawCyphers) == 0 {
+				break
 			}
-			msg += string(db)
+		}
+		rawCyphers = append(rawCyphers, r)
+	}
+
+	for i := 0; i < len(rawCyphers); i++ {
+		switch rawCyphers[i] {
+		case ReverseType:
+			encoder = append(encoder, &ReverseCypher{})
+			decoder = append(decoder, &ReverseCypher{})
+		case XORNType:
+			i++
+			value := rawCyphers[i]
+			encoder = append(encoder, &XORNCypher{value: value})
+			decoder = append(decoder, &XORNCypher{value: value})
+		case XORPosType:
+			encoder = append(encoder, &XORPosCypher{pos: 0})
+			decoder = append(decoder, &XORPosCypher{pos: 0})
+		case AddNType:
+			i++
+			value := rawCyphers[i]
+			encoder = append(encoder, &AddNCypher{value: value})
+			decoder = append(decoder, &AddNCypher{value: value})
+		case AddPosType:
+			encoder = append(encoder, &AddPosCypher{pos: 0})
+			decoder = append(decoder, &AddPosCypher{pos: 0})
 		}
 	}
-	return msg, nil
+	if s.isNoOp(encoder) {
+		return nil, nil, ErrInvalid
+	}
+	return encoder, decoder, nil
 }
 
-func (s *ServerWithReader) decodeByte(client *Client, b byte) (msg byte) {
-	for _, cypher := range client.cypherSpec {
-		b = cypher.operation(b, 0)
+func (s *ServerWithReader) isNoOp(cypherSpec []Cypher) bool {
+	test := []byte("hello")
+	var encoded []byte
+	for _, i := range test {
+		for _, cyp := range cypherSpec {
+			i = cyp.operation(i, true)
+		}
+		encoded = append(encoded, i)
 	}
-	return b
+	return bytes.Equal(encoded, test)
 }

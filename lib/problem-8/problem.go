@@ -5,13 +5,10 @@ import (
 	"fmt"
 	"net"
 	"protohackers/util"
-
-	"github.com/google/uuid"
 )
 
 var (
-	server  ServerWithReader
-	clients []*Client
+	server ServerWithReader
 )
 
 func init() {
@@ -27,32 +24,34 @@ func Problem() {
 }
 
 func handle(conn net.Conn) {
+	defer conn.Close()
 
-	clientId := uuid.New().String()
 	reader := bufio.NewReader(conn)
-	writer := bufio.NewWriter(conn)
-	client := &Client{
-		id:   clientId,
-		conn: conn,
-		writer: serverWriter{
-			w: writer,
-		},
-		reader: serverReader{
-			r: reader,
-		},
+	encoder, decoder, err := server.ReadCypherSpec(reader)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
-	defer client.closeConnection()
-	clients = append(clients, client)
 
-	for {
-		line, err := server.ReadMessage(client)
-		fmt.Println(line, err)
-		if err != nil {
-			if err == ErrUnknown {
-				client.closeConnection()
-				return
-			}
+	decodeReader := &decodeReader{r: reader, cypherSpec: decoder}
+	decodeReader.resetCypherspec()
+
+	readScanner := bufio.NewScanner(decodeReader)
+
+	writer := encodeWriter{w: conn, cypherSpec: encoder}
+	writer.resetCypherspec()
+
+	for readScanner.Scan() {
+		if readScanner.Err() != nil {
+			return
 		}
-		fmt.Println(line)
+
+		line := readScanner.Text()
+
+		toys := createToys(line)
+		max := findMaxToy(toys)
+
+		msg := []byte(max.toString())
+		writer.Write(msg)
 	}
 }

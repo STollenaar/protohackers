@@ -37,5 +37,5 @@ func findMaxToy(toys []Toy) (toy Toy) {
 }
 
 func (t Toy) toString() string {
-	return fmt.Sprintf("%dx %s", t.amount, t.kind)
+	return fmt.Sprintf("%dx %s\n", t.amount, t.kind)
 }
