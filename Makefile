@@ -9,7 +9,7 @@ REMOTE_ALIAS=proto
 REMOTE_ARCH=$(shell ssh $(REMOTE_ALIAS) "uname -m")
 
 # problem to execute
-PROBLEM=problem-8
+PROBLEM=problem-9
 PORT=4269
 
 snapshot:
