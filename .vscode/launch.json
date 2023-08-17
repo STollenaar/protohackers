@@ -13,7 +13,7 @@
             "env": {
                 "PORT": "4269",
                 "DEBUG": "true",
-                "PROBLEM": "problem-10"
+                "PROBLEM": "problem-11"
             }
         }
     ]

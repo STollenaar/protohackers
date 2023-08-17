@@ -1,0 +1,422 @@
+{
+ "sites": {
+  "1886803790": {
+   "populationTargets": {
+    "long-tailed rat": {
+     "min": 0,
+     "max": 10
+    }
+   },
+   "policies": {
+    "long-tailed rat": {
+     "action": 144,
+     "policyId": 0
+    }
+   }
+  },
+  "2218616579": {
+   "populationTargets": {
+    "African short-haired mouse": {
+     "min": 61,
+     "max": 125
+    },
+    "African short-tailed wagtail": {
+     "min": 45,
+     "max": 130
+    },
+    "European bird-eating hippopotamus": {
+     "min": 67,
+     "max": 84
+    },
+    "European bird-eating hobbit": {
+     "min": 88,
+     "max": 153
+    },
+    "bird-eating platypus": {
+     "min": 23,
+     "max": 98
+    },
+    "common duck-billed mosquito": {
+     "min": 82,
+     "max": 110
+    },
+    "flightless alligator": {
+     "min": 39,
+     "max": 100
+    },
+    "flightless ostrich": {
+     "min": 40,
+     "max": 79
+    },
+    "giant bird-eating mouse": {
+     "min": 17,
+     "max": 96
+    },
+    "long-haired rabbit": {
+     "min": 77,
+     "max": 146
+    },
+    "long-tailed rhinoceros": {
+     "min": 21,
+     "max": 111
+    },
+    "pygmy bird-eating dodo": {
+     "min": 44,
+     "max": 142
+    },
+    "short-haired rhinoceros": {
+     "min": 13,
+     "max": 55
+    },
+    "short-haired wagtail": {
+     "min": 70,
+     "max": 76
+    },
+    "short-tailed spider": {
+     "min": 52,
+     "max": 97
+    },
+    "short-tailed squid": {
+     "min": 99,
+     "max": 108
+    },
+    "short-tailed turtle": {
+     "min": 91,
+     "max": 124
+    },
+    "three-legged ostrich": {
+     "min": 29,
+     "max": 96
+    },
+    "three-legged rhinoceros": {
+     "min": 18,
+     "max": 77
+    },
+    "three-legged swallow": {
+     "min": 99,
+     "max": 120
+    }
+   },
+   "policies": {
+    "African short-tailed wagtail": {
+     "action": 144,
+     "policyId": 25
+    },
+    "European bird-eating hippopotamus": {
+     "action": 160,
+     "policyId": 40
+    },
+    "European bird-eating hobbit": {
+     "action": 144,
+     "policyId": 31
+    },
+    "common duck-billed mosquito": {
+     "action": 144,
+     "policyId": 39
+    },
+    "flightless alligator": {
+     "action": 160,
+     "policyId": 35
+    },
+    "flightless ostrich": {
+     "action": 144,
+     "policyId": 28
+    },
+    "long-haired rabbit": {
+     "action": 160,
+     "policyId": 29
+    },
+    "long-tailed rhinoceros": {
+     "action": 144,
+     "policyId": 24
+    },
+    "pygmy bird-eating dodo": {
+     "action": 144,
+     "policyId": 32
+    },
+    "short-haired rhinoceros": {
+     "action": 144,
+     "policyId": 37
+    },
+    "short-tailed squid": {
+     "action": 144,
+     "policyId": 38
+    },
+    "short-tailed turtle": {
+     "action": 144,
+     "policyId": 36
+    },
+    "three-legged ostrich": {
+     "action": 144,
+     "policyId": 34
+    },
+    "three-legged swallow": {
+     "action": 160,
+     "policyId": 33
+    }
+   }
+  },
+  "3500620662": {
+   "populationTargets": {
+    "African duck-billed mosquito": {
+     "min": 72,
+     "max": 112
+    },
+    "African flightless hippopotamus": {
+     "min": 3,
+     "max": 26
+    },
+    "duck-billed platypus": {
+     "min": 15,
+     "max": 38
+    },
+    "lesser-spotted long-haired cat": {
+     "min": 61,
+     "max": 124
+    },
+    "long-haired mouse": {
+     "min": 79,
+     "max": 105
+    }
+   },
+   "policies": {
+    "African duck-billed mosquito": {
+     "action": 160,
+     "policyId": 7
+    },
+    "African flightless hippopotamus": {
+     "action": 160,
+     "policyId": 8
+    },
+    "lesser-spotted long-haired cat": {
+     "action": 144,
+     "policyId": 5
+    }
+   }
+  },
+  "3894155889": {
+   "populationTargets": {
+    "European long-haired octopus": {
+     "min": 88,
+     "max": 178
+    },
+    "bird-eating horse": {
+     "min": 22,
+     "max": 58
+    },
+    "bird-eating mole": {
+     "min": 83,
+     "max": 157
+    },
+    "common long-haired rat": {
+     "min": 81,
+     "max": 121
+    },
+    "duck-billed alligator": {
+     "min": 12,
+     "max": 92
+    },
+    "duck-billed ostrich": {
+     "min": 81,
+     "max": 124
+    },
+    "lesser long-haired rabbit": {
+     "min": 0,
+     "max": 27
+    },
+    "lesser-spotted long-haired iguana": {
+     "min": 84,
+     "max": 98
+    },
+    "long-haired elephant": {
+     "min": 68,
+     "max": 111
+    },
+    "long-tailed mole": {
+     "min": 36,
+     "max": 53
+    },
+    "long-tailed octopus": {
+     "min": 23,
+     "max": 40
+    },
+    "long-tailed rat": {
+     "min": 2,
+     "max": 3
+    },
+    "long-tailed squid": {
+     "min": 8,
+     "max": 104
+    },
+    "pygmy duck-billed dinosaur": {
+     "min": 17,
+     "max": 47
+    },
+    "pygmy long-haired hippopotamus": {
+     "min": 0,
+     "max": 46
+    },
+    "pygmy long-tailed hobbit": {
+     "min": 35,
+     "max": 36
+    },
+    "three-legged octopus": {
+     "min": 27,
+     "max": 54
+    },
+    "three-legged swallow": {
+     "min": 80,
+     "max": 88
+    }
+   },
+   "policies": {
+    "European long-haired octopus": {
+     "action": 160,
+     "policyId": 23
+    },
+    "bird-eating horse": {
+     "action": 160,
+     "policyId": 22
+    },
+    "bird-eating mole": {
+     "action": 160,
+     "policyId": 30
+    },
+    "duck-billed alligator": {
+     "action": 144,
+     "policyId": 27
+    },
+    "duck-billed ostrich": {
+     "action": 144,
+     "policyId": 26
+    },
+    "long-tailed mole": {
+     "action": 144,
+     "policyId": 29
+    },
+    "pygmy duck-billed dinosaur": {
+     "action": 144,
+     "policyId": 31
+    },
+    "pygmy long-haired hippopotamus": {
+     "action": 144,
+     "policyId": 20
+    },
+    "pygmy long-tailed hobbit": {
+     "action": 144,
+     "policyId": 25
+    },
+    "three-legged octopus": {
+     "action": 160,
+     "policyId": 19
+    },
+    "three-legged swallow": {
+     "action": 144,
+     "policyId": 28
+    }
+   }
+  },
+  "690274785": {
+   "populationTargets": {
+    "European short-haired hamster": {
+     "min": 41,
+     "max": 77
+    },
+    "lesser-spotted long-haired hobbit": {
+     "min": 29,
+     "max": 111
+    },
+    "short-tailed otter": {
+     "min": 3,
+     "max": 78
+    },
+    "three-legged iguana": {
+     "min": 25,
+     "max": 69
+    }
+   },
+   "policies": {
+    "lesser-spotted long-haired hobbit": {
+     "action": 144,
+     "policyId": 5
+    }
+   }
+  },
+  "975649324": {
+   "populationTargets": {
+    "duck-billed turtle": {
+     "min": 45,
+     "max": 138
+    },
+    "giant duck-billed duck": {
+     "min": 57,
+     "max": 60
+    },
+    "great duck-billed ostrich": {
+     "min": 73,
+     "max": 161
+    },
+    "great flightless dinosaur": {
+     "min": 76,
+     "max": 173
+    },
+    "great flightless shark": {
+     "min": 33,
+     "max": 83
+    },
+    "lesser-spotted duck-billed rhinoceros": {
+     "min": 17,
+     "max": 54
+    }
+   },
+   "policies": {
+    "giant duck-billed duck": {
+     "action": 160,
+     "policyId": 11
+    },
+    "great flightless dinosaur": {
+     "action": 144,
+     "policyId": 6
+    },
+    "great flightless shark": {
+     "action": 160,
+     "policyId": 10
+    }
+   }
+  },
+  "978937463": {
+   "populationTargets": {
+    "common bird-eating dog": {
+     "min": 55,
+     "max": 148
+    },
+    "lesser-spotted short-tailed otter": {
+     "min": 38,
+     "max": 94
+    },
+    "long-haired alligator": {
+     "min": 69,
+     "max": 115
+    },
+    "short-tailed horse": {
+     "min": 56,
+     "max": 139
+    },
+    "three-legged wagtail": {
+     "min": 50,
+     "max": 86
+    }
+   },
+   "policies": {
+    "lesser-spotted short-tailed otter": {
+     "action": 144,
+     "policyId": 8
+    },
+    "short-tailed horse": {
+     "action": 160,
+     "policyId": 6
+    }
+   }
+  }
+ }
+}

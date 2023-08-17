@@ -6,6 +6,7 @@ import (
 	problem0 "protohackers/lib/problem-0"
 	problem1 "protohackers/lib/problem-1"
 	problem10 "protohackers/lib/problem-10"
+	problem11 "protohackers/lib/problem-11"
 	problem2 "protohackers/lib/problem-2"
 	problem3 "protohackers/lib/problem-3"
 	problem4 "protohackers/lib/problem-4"
@@ -49,6 +50,8 @@ func main() {
 		problem9.Problem()
 	case "problem-10":
 		problem10.Problem()
+	case "problem-11":
+		problem11.Problem()
 	default:
 		log.Fatal("Problem not found")
 	}

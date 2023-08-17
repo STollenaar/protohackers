@@ -12,10 +12,12 @@ builds:
     goarch:
       - amd64
       - arm64
-archives:
-  - replacements:
-      linux: Linux
-      amd64: x86_64
+# archives:
+#   - name_template: 
+#     {{- if eq "amd64" }}x86_64{{- end }}
+#   - replacements:
+#       linux: Linux
+#       amd64: x86_64
 checksum:
   name_template: "checksums.txt"
 dockers:
