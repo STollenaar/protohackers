@@ -32,7 +32,9 @@ func (ServerWithReader) ReadMessage(client *Client) (m Message, err error) {
 	_, err = io.ReadFull(client.reader.r, header)
 
 	if err != nil {
-		fmt.Println("Error reading header: ", err)
+		if err != io.ErrUnexpectedEOF {
+			fmt.Println("Error reading header: ", err)
+		}
 		return ErrorMessage{Message: "Error reading header"}, err
 	}
 	headerCopy := make([]byte, len(header))
@@ -54,6 +56,7 @@ func (ServerWithReader) ReadMessage(client *Client) (m Message, err error) {
 		return ErrorMessage{Message: "Error reading message length"}, err
 	}
 	if length > 100000 {
+		fmt.Printf("Message too long for %d\n", length)
 		return ErrorMessage{Message: "Message too long"}, errors.New("message too long")
 	}
 	length -= HeaderLength // The message length includes the header. We already have the header so we can remove that length of it
